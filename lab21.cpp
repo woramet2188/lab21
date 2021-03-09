@@ -28,7 +28,59 @@ ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 	return ComplexNumber(real-c.real,imag-c.imag);
 }
 
-//Write your code here
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c){
+	return ComplexNumber(real*c.real-imag*c.imag,real*c.imag+imag*c.real);
+}
+
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c){
+	double z = pow(c.real,2)+pow(c.imag,2);
+	double x1 = (real*c.real)+(imag*c.imag);
+	double x2 = (imag*c.real)-(real*c.imag);
+	return ComplexNumber(x1/z,x2/z); 
+}
+
+ComplexNumber operator+(double s,const ComplexNumber &c){
+	return ComplexNumber(s+c.real,c.imag);
+}
+
+ComplexNumber operator-(double s,const ComplexNumber &c){
+	return ComplexNumber(s-c.real,-c.imag);
+}
+
+ComplexNumber operator*(double s,const ComplexNumber &c){
+	return ComplexNumber(s*c.real,s*c.imag);
+}
+
+ComplexNumber operator/(double s,const ComplexNumber &c){
+	double z = pow(c.real,2)+pow(c.imag,2);
+	return ComplexNumber(s*c.real/z,-(s*c.imag/z));
+}
+
+double ComplexNumber::abs(){
+	return sqrt(pow(real,2)+pow(imag,2));
+}
+
+double  ComplexNumber::angle(){
+	return atan2(imag,real) * 180/M_PI;
+}
+
+bool ComplexNumber::operator==(const ComplexNumber &c){
+	if(real == c.real && imag == c.imag) return 1;
+	else return 0;
+}
+
+bool operator==(int s,const ComplexNumber &c){
+	if(s == c.real && s == c.imag) return 1;
+	else return 0;
+}
+
+ostream & operator<<(ostream &os,const ComplexNumber &c){
+	if(c.real == 0 && c.imag == 0) return os << "0";
+	if(c.imag == 0) return os << c.real;
+	if(c.real == 0) return os << c.imag << "i";
+	if(c.imag < 0) return os << c.real << c.imag << "i";
+	return os << c.real <<"+"<< c.imag << "i";
+}
 
 int main(){
 	ComplexNumber a(1.5,2),b(3.2,-2.5),c(-1,1.2);	
